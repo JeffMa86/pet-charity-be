@@ -15,6 +15,7 @@ describe('test/controller/home.test.ts', () => {
     expect(result.body.message).toBe('OK');
 
     // close app
+
     await close(app);
   });
 });
