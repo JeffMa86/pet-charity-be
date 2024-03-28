@@ -10,19 +10,19 @@ import * as orm from '@midwayjs/typeorm';
 import {ResultMiddleware} from "./aware/ResultMiddleware";
 import {SystemErrorFilter} from "./filter/systemError.filter";
 import * as swagger from '@midwayjs/swagger';
-import * as staticFile from '@midwayjs/static-file';
+// import * as staticFile from '@midwayjs/static-file';
 
 @Configuration({
   imports: [
     koa,
     validate,
     swagger,
-    staticFile,
+    // staticFile,
     {
       component: info,
       enabledEnvironment: ['local'],
     },
-    orm
+    orm,
   ],
   importConfigs: [join(__dirname, './config')],
 })
@@ -35,5 +35,7 @@ export class MainConfiguration {
     this.app.useMiddleware([ReportMiddleware,ResultMiddleware]);
     // add filter
     this.app.useFilter([SystemErrorFilter]);
+    this.app.useMiddleware(require('@koa/cors')())
+
   }
 }
